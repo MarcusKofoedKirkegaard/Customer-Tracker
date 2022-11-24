@@ -38,14 +38,22 @@ public class CustomerTracker implements ICustomerTracker
         return Math.round((avgThisWeek() - avgWeek(week)) * 100.0) / 100.0;
     }
 
-    private double avgWeek(int week)
+    private double avgWeek(int week) throws NullPointerException
     {
-        double customersWeek = 0.0;
-        
-        for (int customerPerDay : customerData.get(week))
+        try 
         {
-            customersWeek += customerPerDay;
-        }
+            double customersWeek = 0.0;
+        
+            for (int customerPerDay : customerData.get(week))
+            {
+                customersWeek += customerPerDay;
+            }
         return customersWeek / 7.0;
+        } 
+        catch (NullPointerException e) 
+        {
+            System.out.println(e.getMessage());
+        }
+        return 0.0;
     }
 }
